@@ -17,18 +17,54 @@
         // foo();
         // document.writeln(String(x));
 
-        const id = x => x;
-        const Konst = x => y => x; // konstante funktion, egal was kommt
-        // const Kite = x => y => y;
-        // const Kite = x => y => id(y);
-        // const Kite = x => id; // Eta reduktion angewendet
-        const Kite = Konst (id)
+        // const id = x => x;
+        // const Konst = x => y => x; // konstante funktion, egal was kommt
+        // // const Kite = x => y => y;
+        // // const Kite = x => y => id(y);
+        // // const Kite = x => id; // Eta reduktion angewendet
+        // const Kite = Konst (id)
+        //
+        //
+        // test( id(id) === id);
+        // test( Konst(id)(undefined) === id);
+        // test( Konst(id)(42) === id);
+        // test( Kite(undefined)(id) === id);
+
+        // Quiz 2, Q4
+        // // let x= 0;
+        // function two() {
+        //     x = 2;
+        //     return x;
+        // }
+        // // two();
+        //
+        // try {
+        //     x;
+        //     document.writeln(true)
+        // } catch (e) {
+        //     document.writeln(false)
+        // }
+
+        // Quiz 2, Q5
+        // let x = 0;
+        // function two() {
+        //     let x = 2;
+        //     return x;
+        //     };
+        // two();
+        //
+        // try {
+        //     document.writeln(x === 0)
+        // } catch (e) {
+        //     document.writeln(false)
+        // }
 
 
-        test( id(id) === id);
-        test( Konst(id)(undefined) === id);
-        test( Konst(id)(42) === id);
-        test( Kite(undefined)(id) === id);
+        const id1 = x => x;
+        const id2 = y => y;
+
+
+
 
 
     </script>
