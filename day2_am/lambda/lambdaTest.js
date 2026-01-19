@@ -3,47 +3,57 @@
 
 const ok = [];
 
-// id
+// // id
 ok.push( id(1) === 1 );
 ok.push( id(id) === id );
-
-// konst
-ok.push( konst(42)(0) === 42 );
-ok.push( konst(42)(1) === 42 );
+//
+// // konst
+ok.push( konst(42)(0)    === 42 );
+ok.push( konst(42)(1)    === 42 );
 ok.push( konst(42)(null) === 42 );
-
-// kite
+//
+// // kite
 ok.push( snd(null)(42) === 42 );
-
-// true
-
+//
+// // true
+//
 ok.push( T(1)(0) === 1 );
 ok.push( F(1)(0) === 0 );
-
-and
+//
+// // and
 ok.push( and(F)(F) === F );
 ok.push( and(T)(F) === F );
 ok.push( and(F)(T) === F );
 ok.push( and(T)(T) === T );
-
-// or
+//
+// // or
 ok.push( or(F)(F) === F );
 ok.push( or(T)(F) === T );
 ok.push( or(F)(T) === T );
 ok.push( or(T)(T) === T );
 
 // flip
-// flip(f)(x)(y) = f(y)(x)
-//
+ok.push(flip(konst)(1)(0) === konst(0)(1));
+
 // // not
-//
+ok.push( not(T) === F );
+ok.push( not(F) === T );
+
+
 // // beq
+// // and
+ok.push( beq(F)(F) === T );
+ok.push( beq(T)(F) === F );
+ok.push( beq(F)(T) === F );
+ok.push( beq(T)(T) === T );
+
+
 //
 // // Pair
 //
-// const dierk = Pair("Dierk")("König"); // immutable
-// ok.push( dierk(firstname) === "Dierk");
-// ok.push( dierk(lastname)  === "König");
+const dierk = Pair("Dierk")("König"); // immutable
+ok.push( dierk(firstname) === "Dierk");
+ok.push( dierk(lastname)  === "König");
 //
 // const tdierk = Triple("Dierk")("König")(50); // immutable
 // ok.push( tdierk(tfirstname) === "Dierk");
@@ -51,12 +61,12 @@ ok.push( or(T)(T) === T );
 // ok.push( tdierk(tage)       === 50);
 //
 // // tuple
-// const [Person, fn, ln, ag] = Tuple(3);
-// const person = Person("Dierk")("König")(50);
-// ok.push( person(fn) === "Dierk");
-// ok.push( person(ln) === "König");
-// ok.push( person(ag) === 50);
-//
+const [Person, fn, ln, ag] = Tuple(3);
+const person = Person("Dierk")("König")(50);
+ok.push( person(fn) === "Dierk");
+ok.push( person(ln) === "König");
+ok.push( person(ag) === 50);
+
 // // composed Tuple
 //
 // const [Team, lead, deputy] = Tuple(2);
@@ -70,32 +80,32 @@ ok.push( or(T)(T) === T );
 //
 
 
-// const safeDiv = num => divisor =>
-//     divisor === 0
-//     ? Left("schlecht!")
-//     : Right(num / divisor);
-//
-// either( safeDiv(1)(0)  )
-//       ( x => console.error(x))
-//       ( x => console.log(x));
+const safeDiv = num => divisor =>
+    divisor === 0
+    ? Left("schlecht!")
+    : Right(num / divisor);
 
-//
-// const [Cash, CreditCard, Invoice, PayPal, pay] = Choice(4);
-// const cash = Cash ();
-// const card = CreditCard ("0000-1111-2222-3333");
-// const invo = Invoice    ({name:"Roger", number:"4711"});
-// const pal  = PayPal     (person);  // the payload can be a partially applied function, e.g. Tuple ctor
-// const doPay = method =>
-//     pay (method)
-//         ( _       => "paid cash")
-//         ( number  => "credit card "+number)
-//         ( account => account.name + " " + account.number )
-//         ( person  => "pal: " + person(fn) );
-//
-// ok.push( doPay(cash) === "paid cash");
-// ok.push( doPay(card) === "credit card 0000-1111-2222-3333");
-// ok.push( doPay(invo) === "Roger 4711");
-// ok.push( doPay(pal ) === "pal: Dierk");
+ safeDiv(1)(1)
+      ( x => console.error(x))
+      ( x => console.log(x));
+
+
+const [Cash, CreditCard, Invoice, PayPal, pay] = Choice(4);
+const cash = Cash ();
+const card = CreditCard ("0000-1111-2222-3333");
+const invo = Invoice    ({name:"Roger", number:"4711"});
+const pal  = PayPal     (person);  // the payload can be a partially applied function, e.g. Tuple ctor
+const doPay = method =>
+    pay (method)
+        ( _       => "paid cash")
+        ( number  => "credit card "+number)
+        ( account => account.name + " " + account.number )
+        ( person  => "pal: " + person(fn) );
+
+ok.push( doPay(cash) === "paid cash");
+ok.push( doPay(card) === "credit card 0000-1111-2222-3333");
+ok.push( doPay(invo) === "Roger 4711");
+ok.push( doPay(pal ) === "pal: Dierk");
 
 
 
@@ -122,5 +132,3 @@ if (allTestsOk()) {
         }
     }
 }
-
-

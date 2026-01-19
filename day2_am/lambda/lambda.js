@@ -1,20 +1,25 @@
-
-
 const id    = x => x;
 const konst = x => y => x;
 const snd   = x => y => y;
 
-// const T = trueCase => elseCase => trueCase;
-// const T = x => y => x; // das ist das gleiche wie oben
 const T = konst;
-// Hier auch
-// const F = trueCase => elseCase => elseCase;
 const F = snd;
 
 const and = a => b => a ( b ) ( a );
-const or = a => b => a ( a ) ( b );
+const or  = a => b => a ( a ) ( b );
 
-const flip = f => x => y => f(y)(x)
+const flip = f => x => y => f(y)(x);
+const not  = a => flip (a) (T) (F);
+
+const beq = a => b => a (b) (not(b));
+
+const Pair = x => y => f => f(x)(y) ;
+const firstname = konst;
+const lastname  = snd;
+
+const Left   =  x => lh => rh => lh(x);
+const Right  =  x => lh => rh => rh(x);
+const either =  id;
 
 // ----- special -----
 
