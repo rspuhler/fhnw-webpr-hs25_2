@@ -1,5 +1,20 @@
 
 
+const id    = x => x;
+const konst = x => y => x;
+const snd   = x => y => y;
+
+// const T = trueCase => elseCase => trueCase;
+// const T = x => y => x; // das ist das gleiche wie oben
+const T = konst;
+// Hier auch
+// const F = trueCase => elseCase => elseCase;
+const F = snd;
+
+const and = a => b => a ( b ) ( a );
+const or = a => b => a ( a ) ( b );
+
+const flip = f => x => y => f(y)(x)
 
 // ----- special -----
 
