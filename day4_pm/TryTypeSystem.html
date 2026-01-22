@@ -8,12 +8,48 @@
 
 <script>
 
+    /**
+     * @typedef CoolType
+     * @property { () => String } cool
+     */
 
-    const foo = arg => {
-        return (arg + 1);
+
+
+    /**
+     * @typedef PersonType
+     * @property { String  } fn - the first name
+     * @property { Boolean } tennis - whether the person plays tennis
+     */
+
+    /**
+     * @type { PersonType & CoolType }
+     */
+    const person = { fn:"Roger", tennis: true, cool: ()=>"webPr" };
+
+    /**
+     * might also be a {@link CoolType cool}.
+     * @constructor
+     * @param { String  } fn - the first name
+     * @param { Boolean } tennis - whether the person plays tennis
+     * @return { PersonType }
+     */
+    const Person = (fn, tennis,) => {
+        return { fn, tennis };
     };
 
-    document.writeln( foo(41) );
+    /**
+     * The foo function takes a value and adds 1 to it...
+     *
+     * @example
+     *   foo(41) === 42
+     *   foo("41") === "411"
+     * @param { PersonType & CoolType } arg
+     */
+    const foo = arg => {
+        return console.log(arg);
+    };
+
+    foo(person)   ;
 
 
 </script>
