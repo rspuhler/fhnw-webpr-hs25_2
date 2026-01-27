@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    /**
+     * @typedef CoolType
+     * @property { () => String } cool
+     */
+
+
+
+    /**
+     * @typedef PersonType
+     * @property { String  } fn - the first name
+     * @property { Boolean } tennis - whether the person plays tennis
+     */
+
+    /**
+     * @type { PersonType & CoolType }
+     */
+    const person = { fn:"Roger", tennis: true, cool: ()=>"webPr" };
+
+    /**
+     * might also be a {@link CoolType cool}.
+     * @constructor
+     * @param { String  } fn - the first name
+     * @param { Boolean } tennis - whether the person plays tennis
+     * @return { PersonType }
+     */
+    const Person = (fn, tennis,) => {
+        return { fn, tennis };
+    };
+
+    /**
+     * The foo function takes a value and adds 1 to it...
+     *
+     * @example
+     *   foo(41) === 42
+     *   foo("41") === "411"
+     * @param { PersonType & CoolType } arg
+     */
+    const foo = arg => {
+        return console.log(arg);
+    };
+
+    foo(person)   ;
+
+
+</script>
+
+</body>
+</html>
