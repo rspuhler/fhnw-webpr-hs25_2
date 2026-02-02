@@ -6,6 +6,34 @@
 <body>
 <script>
 
+    const inc     = it  => it + 1;
+    const forever = _it => true;
+
+    const iter = (startVal, whileFn=forever, incFn = inc) =>  ({
+        [Symbol.iterator]: () => ({
+            next: () => ({value: startVal=incFn(startVal), done: !whileFn(startVal)})
+        })
+    });
+
+    Iterator.from(iter(1))
+            .drop(10)
+            .filter(it => it % 3 === 0)
+            .take(10)
+            .map( it => [...String(it)]
+                .map(it => Number(it))
+                .reduce((acc,cur)=>acc+cur,0)
+            )
+            .forEach( it => console.log(it));
+    //
+    // const [first, second] = iter(1);
+    // console.log("first", first);
+    // console.log("second", second);
+    //
+    // for (const x of iter(42, it => it < 100, it=> it + 5)) {
+    //     console.log(x);
+    // }
+
+
 
 
 

@@ -25,11 +25,9 @@ export { DataFlowVariable, Scheduler }
  */
 const DataFlowVariable = createValue => {
     let value = undefined;
-    return () => {
-        if (value !== undefined) { return value }
-        value = createValue();
-        return value;
-    }
+    return () => value !== undefined
+                 ? value
+                 : value = createValue();
 };
 
 /**

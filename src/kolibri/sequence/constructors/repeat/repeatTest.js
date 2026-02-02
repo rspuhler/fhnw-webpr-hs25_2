@@ -7,13 +7,13 @@ import {
   TESTS
 }                           from "../../util/testingTable.js";
 
-const testSuite = TestSuite("Sequence: constructor repeat");
+const testSuite = TestSuite("Sequence: constructor iter");
 
 addToTestingTable(testSuite)(
   createTestConfig({
-    name:     "repeat",
-    iterable: () => repeat(42),
-    expected: [42, 42, 42, 42, 42],
+    name:          "iter",
+    iterable:      () => repeat(42),
+    expected:      [42, 42, 42, 42, 42],
     evalFn:   expected => actual => {
       const expectedArray = take(5)(expected);
       const actualArray   = take(5)(actual);

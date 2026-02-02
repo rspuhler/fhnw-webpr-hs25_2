@@ -19,7 +19,7 @@ export { bind }
  *
  * @example
  * const numbers = [0, 1, 2, 3];
- * const bindFn  = el => take(el)(repeat(el));
+ * const bindFn  = el => take(el)(iter(el));
  * const result  = bind(bindFn)(numbers);
  *
  * console.log(...result);
