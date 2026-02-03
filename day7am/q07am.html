@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>Kolibri Q07am – tree(n) Test</title>
+    <style>
+        body { font-family: monospace; }
+        input { width: 5rem; }
+        pre { background: #f7f7f7; padding: 12px; }
+    </style>
+</head>
+<body>
+
+<h2>Kolibri Q07am – tree(n)</h2>
+
+<label>
+    n:
+    <input id="n" type="number" min="1" max="100" value="5">
+</label>
+<button id="run">Run</button>
+
+<h3>Output</h3>
+<pre id="out"></pre>
+
+<h3>Quiz-Check</h3>
+<pre id="check"></pre>
+
+<script src="https://cdn.jsdelivr.net/gh/WebEngineering-FHNW/Kolibri@gh-pages/productionBundle.js"></script>
+
+<script>
+    /* ===== Helper: finite Sequence -> String (stabil im Browser) ===== */
+    const toStr = seq => seq.reduce$((acc, ch) => acc + ch, "");
+
+    /* ===== Lösung: tree(n) ===== */
+    const tree = n => {
+        const chars = c => k =>
+            take(k)(
+                map(_ => c)(
+                    Walk(ALL)          // 0,1,2,3,... (unendlich)
+                )
+            );
+
+        const stars =
+            map(i => toStr(chars("*")(1 + 2 * i)))(
+                Walk(ALL)            // i = 0,1,2,3,...
+            );
+
+        const blanks =
+            map(i => toStr(chars(" ")(n - i - 1)))(
+                Walk(ALL)
+            );
+
+        return take(n)(
+            map(([b, s]) => b + s + b)(
+                zip(blanks)(stars)   // ✅ zip ist curried!
+            )
+        );
+    };
+
+    /* ===== Quiz-ähnlicher Test (wie im Screenshot) ===== */
+    const quizCheck = n_ => {
+        const t_ = tree(n_);
+        const matches = (str, n) => {
+            const m = str.match(/^( *)?(\**)( *)?$/);
+            return m && m[2].length === 1 + 2 * (n - 1);
+        };
+        return t_.count$() === n_
+            && t_.reduce$(
+                ([n, b], cur) => Pair(n + 1)(b && matches(cur, n)),
+                Pair(1)(true)
+            )(snd);
+    };
+
+    /* ===== UI ===== */
+    const outEl = document.getElementById("out");
+    const checkEl = document.getElementById("check");
+    const nEl = document.getElementById("n");
+
+    function run() {
+        const n = Number(nEl.value);
+        outEl.textContent = "";
+
+        tree(n).reduce$((_, line) => {
+            outEl.textContent += line + "\n";
+        }, null);
+
+        const ok = quizCheck(n);
+        checkEl.textContent = ok ? "PASS" : "FAIL";
+        console.log("Quiz-check", n, ok);
+    }
+
+    document.getElementById("run").addEventListener("click", run);
+    run();
+</script>
+
+</body>
+</html>
