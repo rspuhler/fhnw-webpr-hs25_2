@@ -6,39 +6,32 @@
     </head>
     <body>
     <h1>Try Kolibri Production Bundle</h1>
-
+    <p>test the fibonacci sequence with random numbers 1..10,
+    check for "true", reload for next test.</p>
     <pre id="out"> waiting ... </pre>
 
     <script src="https://webengineering-fhnw.github.io/Kolibri/production/kolibri-0.9.11.js"></script>
     <script >
 
-        out.textContent += 10..times ( n => n**3 ).sum();
+        const fibs =
+                  Sequence( Pair(1)(1), forever  , ([a,b]) => Pair(b)(a+b) )
+                      .map( ([a,_b]) => a );
+
+        /**
+         * Gets the nth fibonacci number
+         * @param { Number } n - must be at least 1 or greater, integral
+         * @return {*}
+         */
+        const fib = n => fibs.drop(n-1).head();
+
+        const testFibAssertion = n => fib(n) + fib(n+1) === fib(n+2);
+
+        const n = 1 + Math.random()*10 | 0;
+
+        out.textContent += ""  + n + " " + testFibAssertion(n) ;
+
 
     </script>
-
-    <pre>
-        You can use your browser's console to try Kolibri for yourself.
-        Here are some ideas of what you can do:
-
-        Walk(3)  ['==']  ( Seq(0,1,2,3) );
-
-
-        const odds = Walk(1,ALL,2);
-        odds.show();
-
-        const partialSums = seq => Walk(1,ALL).map( n => seq.take(n).foldl$(plusOp, 0));
-
-        const triagonalNumbers = partialSums(Walk()).show();
-        const surprise         = partialSums(odds).show();
-
-        const fib = ???
-
-        const ratios = Walk().map(n=> fib(n+1)/fib(n));
-        ratios.show();
-        const golden = limit(0.0001, ratios);
-
-
-    </pre>
 
     </body>
 
